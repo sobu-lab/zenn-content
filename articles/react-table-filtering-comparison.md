@@ -29,7 +29,7 @@ Reactでテーブルを実装するとき、「どのライブラリを使えば
 
 6ライブラリを同一データで動かせるデモを用意しました。実際に操作して比較できます。
 
-https://sobu-lab.github.io/zenn-content/
+https://sobu-lab.github.io/zenn-content/react-table-library-demo/
 
 ## サンプルデータ
 
