@@ -173,8 +173,6 @@ const table = useReactTable({
 
 Chakra UIの`Table`は**スタイリングのみ**のコンポーネントです。フィルタリングやソートのロジックは一切持っていないため、TanStack Tableと組み合わせて使います。shadcn/uiと同じアプローチですが、Chakra UIのデザインシステムをすでに使っているプロジェクトで採用するケースが多いです。
 
-フィルター機能はTanStack Table任せのため、実装コストはshadcn/uiと同程度です。
-
 ### デモ
 
 @[stackblitz](<!-- Chakra UI StackBlitz URL をここに貼る -->)
@@ -186,6 +184,23 @@ import { Table } from '@chakra-ui/react'
 // Table.Root / Table.Header / Table.Row / Table.Cell を TanStack Table の
 // getHeaderGroups() / getRowModel() と組み合わせて描画する
 ```
+
+### ハマりどころ：useMemo が必須
+
+TanStack Tableに渡す`data`は**毎レンダーで同じ参照を返す必要があります**。フィルター処理などで新しい配列を生成する場合、`useMemo`でメモ化しないとTanStack Tableがデータ変更を検知し続けて無限ループになります。
+
+```tsx
+// ❌ 毎レンダーで新しい配列が生成され、無限ループになる
+const filtered = roleFilter ? data.filter((d) => d.role === roleFilter) : data
+
+// ✅ useMemo で参照を安定させる
+const filtered = useMemo(
+  () => roleFilter ? data.filter((d) => d.role === roleFilter) : data,
+  [roleFilter]
+)
+```
+
+antdやMUIではこのような落とし穴はなく、TanStack Tableを直接扱う組み合わせ特有の注意点です。
 
 ### 無料範囲
 
@@ -287,7 +302,7 @@ const columnDefs = [
 | antd | ✅ 自前実装 | ✅ ビルトイン | ★★★★☆ | 低 |
 | MUI DataGrid | ✅ クイックフィルター | ✅ ビルトイン | ★★★★☆ | 低 |
 | shadcn/ui | ✅ TanStack | ✅ 自前実装 | ★★★☆☆ | 中〜高 |
-| Chakra UI | ✅ TanStack | ✅ 自前実装 | ★★☆☆☆ | 高 |
+| Chakra UI | ✅ TanStack | ✅ 自前実装 | ★★☆☆☆ | 高（useMemo 必須） |
 | TanStack Table | ✅ ビルトイン | ✅ ビルトイン | ★★☆☆☆ | 高 |
 | AG Grid | ✅ クイックサーチ | ✅ フローティング | ★★★★★ | 低 |
 
