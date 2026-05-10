@@ -1,4 +1,4 @@
-import React, { Suspense, useState, lazy } from 'react'
+import React, { Suspense, useState, useEffect, lazy } from 'react'
 
 const AntdDemo     = lazy(() => import('./demos/AntdDemo'))
 const MuiDemo      = lazy(() => import('./demos/MuiDemo'))
@@ -8,16 +8,29 @@ const TanstackDemo = lazy(() => import('./demos/TanstackDemo'))
 const AgGridDemo   = lazy(() => import('./demos/AgGridDemo'))
 
 const tabs = [
-  { label: 'Ant Design',     component: AntdDemo     },
-  { label: 'MUI DataGrid',   component: MuiDemo      },
-  { label: 'shadcn/ui',      component: ShadcnDemo   },
-  { label: 'Chakra UI',      component: ChakraDemo   },
-  { label: 'TanStack Table', component: TanstackDemo },
-  { label: 'AG Grid',        component: AgGridDemo   },
+  { label: 'Ant Design',     hash: 'antd',     component: AntdDemo     },
+  { label: 'MUI DataGrid',   hash: 'mui',      component: MuiDemo      },
+  { label: 'shadcn/ui',      hash: 'shadcn',   component: ShadcnDemo   },
+  { label: 'Chakra UI',      hash: 'chakra',   component: ChakraDemo   },
+  { label: 'TanStack Table', hash: 'tanstack', component: TanstackDemo },
+  { label: 'AG Grid',        hash: 'ag-grid',  component: AgGridDemo   },
 ]
 
+function getIndexFromHash() {
+  const hash = window.location.hash.replace('#', '')
+  const i = tabs.findIndex((t) => t.hash === hash)
+  return i >= 0 ? i : 0
+}
+
 export default function App() {
-  const [active, setActive] = useState(0)
+  const [active, setActive] = useState(getIndexFromHash)
+
+  useEffect(() => {
+    const onHashChange = () => setActive(getIndexFromHash())
+    window.addEventListener('hashchange', onHashChange)
+    return () => window.removeEventListener('hashchange', onHashChange)
+  }, [])
+
   const Demo = tabs[active].component
 
   return (
@@ -28,11 +41,11 @@ export default function App() {
       </div>
       <div style={{ display: 'flex', flexWrap: 'wrap', borderBottom: '1px solid #e2e8f0', background: '#f8fafc', padding: '0 16px' }}>
         {tabs.map((tab, i) => (
-          <button
-            key={tab.label}
-            onClick={() => setActive(i)}
+          <a
+            key={tab.hash}
+            href={`#${tab.hash}`}
             style={{
-              padding: '10px 16px', border: 'none', background: 'none', cursor: 'pointer', fontSize: 13,
+              padding: '10px 16px', textDecoration: 'none', fontSize: 13,
               borderBottom: active === i ? '2px solid #3b82f6' : '2px solid transparent',
               color: active === i ? '#3b82f6' : '#64748b',
               fontWeight: active === i ? 600 : 400,
@@ -40,7 +53,7 @@ export default function App() {
             }}
           >
             {tab.label}
-          </button>
+          </a>
         ))}
       </div>
       <Suspense fallback={<div style={{ padding: 40, textAlign: 'center', color: '#94a3b8' }}>読み込み中...</div>}>
