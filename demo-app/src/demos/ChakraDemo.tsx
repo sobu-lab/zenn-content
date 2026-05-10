@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useMemo } from 'react'
 import {
   ChakraProvider, Box, Input, Badge, Flex, Button, Text, Select,
   Table, Thead, Tbody, Tr, Th, Td, TableContainer,
@@ -26,7 +26,10 @@ function TableContent() {
   const [roleFilter, setRoleFilter] = useState('')
   const [sorting, setSorting] = useState<SortingState>([])
 
-  const filtered = roleFilter ? users.filter((d) => d.role === roleFilter) : users
+  const filtered = useMemo(
+    () => roleFilter ? users.filter((d) => d.role === roleFilter) : users,
+    [roleFilter]
+  )
 
   const table = useReactTable({
     data: filtered, columns,
