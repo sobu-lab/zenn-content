@@ -36,8 +36,11 @@ jobs:
           # 一覧ページをルートに配置
           cp demo-index/index.html dist/index.html
 
-          # demos/ 配下のディレクトリを全てビルド
+          # vite.config.ts があるディレクトリだけビルド
           for demo_dir in demos/*/; do
+            if [ ! -f "${demo_dir}vite.config.ts" ]; then
+              continue
+            fi
             demo_name=$(basename "$demo_dir")
             echo "Building: $demo_name"
             cd "$demo_dir"
