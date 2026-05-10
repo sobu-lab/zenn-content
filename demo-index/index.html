@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Demo | sobu-lab</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f8fafc; color: #1e293b; }
+    header { background: #1e293b; padding: 16px 32px; }
+    header h1 { color: #fff; font-size: 18px; font-weight: 600; }
+    header p { color: #94a3b8; font-size: 13px; margin-top: 4px; }
+    main { max-width: 960px; margin: 40px auto; padding: 0 24px; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; }
+    a.card {
+      display: block; text-decoration: none; background: #fff;
+      border: 1px solid #e2e8f0; border-radius: 10px; padding: 20px;
+      transition: box-shadow 0.15s, border-color 0.15s;
+    }
+    a.card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.08); border-color: #cbd5e1; }
+    .card-tag { font-size: 11px; font-weight: 600; color: #3b82f6; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 8px; }
+    .card h2 { font-size: 15px; font-weight: 700; color: #1e293b; margin-bottom: 8px; }
+    .card p { font-size: 13px; color: #64748b; line-height: 1.6; }
+    .card-arrow { margin-top: 14px; font-size: 12px; color: #3b82f6; font-weight: 500; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>sobu-lab / Demo</h1>
+    <p>記事に関連するインタラクティブデモ一覧</p>
+  </header>
+  <main>
+    <div class="grid">
+
+      <a class="card" href="./react-table-library-demo/">
+        <div class="card-tag">React</div>
+        <h2>React Table Library Demo</h2>
+        <p>antd・MUI・shadcn/ui・Chakra UI・TanStack Table・AG Grid のフィルタリング・検索・ソート・ページネーションを実際に操作して比較できます。</p>
+        <div class="card-arrow">デモを見る →</div>
+      </a>
+
+      <!-- 新しいデモはここに追加 -->
+
+    </div>
+  </main>
+</body>
+</html>

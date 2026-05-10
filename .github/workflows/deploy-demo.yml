@@ -4,7 +4,8 @@ on:
   push:
     branches: [main]
     paths:
-      - 'demo-app/**'
+      - 'demo-index/**'
+      - 'demos/**'
   workflow_dispatch:
 
 permissions:
@@ -27,15 +28,28 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 20
-      - name: Install
-        run: npm install
-        working-directory: demo-app
-      - name: Build
-        run: npm run build
-        working-directory: demo-app
+
+      - name: Build all demos
+        run: |
+          mkdir -p dist
+
+          # 一覧ページをルートに配置
+          cp demo-index/index.html dist/index.html
+
+          # demos/ 配下のディレクトリを全てビルド
+          for demo_dir in demos/*/; do
+            demo_name=$(basename "$demo_dir")
+            echo "Building: $demo_name"
+            cd "$demo_dir"
+            npm install
+            npm run build
+            cd ../..
+            mv "demos/${demo_name}/dist" "dist/${demo_name}"
+          done
+
       - uses: actions/configure-pages@v4
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: demo-app/dist
+          path: dist
       - uses: actions/deploy-pages@v4
         id: deployment

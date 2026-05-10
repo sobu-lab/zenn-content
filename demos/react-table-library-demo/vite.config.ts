@@ -3,5 +3,5 @@ import react from '@vitejs/plugin-react'
 
 export default defineConfig({
   plugins: [react()],
-  base: '/zenn-content/',
+  base: '/zenn-content/react-table-library-demo/',
 })
