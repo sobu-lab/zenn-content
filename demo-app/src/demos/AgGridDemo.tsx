@@ -1,13 +1,10 @@
 import React, { useState, useRef } from 'react'
 import { AgGridReact } from 'ag-grid-react'
 import type { ColDef, GridReadyEvent } from 'ag-grid-community'
-import { ModuleRegistry, AllCommunityModule } from 'ag-grid-community'
 import 'ag-grid-community/styles/ag-grid.css'
 import 'ag-grid-community/styles/ag-theme-quartz.css'
 import { users } from '../data'
 import type { User } from '../data'
-
-ModuleRegistry.registerModules([AllCommunityModule])
 
 const columnDefs: ColDef<User>[] = [
   { field: 'name',       headerName: '名前',       filter: 'agTextColumnFilter',   floatingFilter: true },

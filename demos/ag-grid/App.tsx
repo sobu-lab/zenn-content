@@ -1,12 +1,8 @@
 import React, { useState, useRef } from 'react'
 import { AgGridReact } from 'ag-grid-react'
 import type { ColDef, GridReadyEvent } from 'ag-grid-community'
-import { ModuleRegistry, AllCommunityModule } from 'ag-grid-community'
 import 'ag-grid-community/styles/ag-grid.css'
 import 'ag-grid-community/styles/ag-theme-quartz.css'
-
-// AG Grid v32+ ではモジュール登録が必要
-ModuleRegistry.registerModules([AllCommunityModule])
 
 type User = {
   id: number
