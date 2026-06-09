@@ -6,12 +6,6 @@ topics: ["tauri", "rust", "windows", "microsoftstore", "個人開発"]
 published: false
 ---
 
-<!--
-公開前メモ（消してください）:
-- GIF・スクショ・ストアURLは実物に差し替え。
-- コード断片はリポジトリから抜粋。長すぎる場合は折りたたみ or GitHub 誘導に。
--->
-
 ## はじめに
 
 Windows のタスクバーで熱帯魚や金魚を泳がせる小さなアプリ「Taskbar Aquarium」を作って、**無料になった Microsoft Store に個人で公開**しました。
@@ -24,10 +18,10 @@ Windows のタスクバーで熱帯魚や金魚を泳がせる小さなアプリ
 
 このあたりが、後から同じことをやる人の役に立てば嬉しいです。
 
-<!-- ここに完成形の GIF -->
+![タスクバーで泳ぐ水槽](/images/aquarium-demo.gif)
 
 - リポジトリ: https://github.com/sobu-lab/taskbar-aquarium-tauri
-- ストアページ: <!-- URL -->
+- ストアページ: https://apps.microsoft.com/detail/9PL9WTM1678K
 
 ---
 
@@ -205,7 +199,7 @@ manifest の `Identity`（Name / Publisher / PublisherDisplayName）は Partner 
 
 ### 住所欄が数字だけだと弾かれた
 
-登録時の番地欄が "complete street address" を要求していて、番地の数字だけだと通りません。町名からローマ字で（例: `Hokuseicho-ageki 1813`）入れると通りました。
+登録時の番地欄が "complete street address" を要求していて、番地の数字だけだと通りません。町名からローマ字で（例: `Townname-area 1234`）入れると通りました。
 
 ### 「保存できない」のは読み取り専用ページだった
 
